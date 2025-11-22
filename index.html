@@ -11,25 +11,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     }
 
-    .logo {
-      width: 80%;
-      max-width: 900px;
+    .logo-text {
+      font-size: 22px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
       opacity: 0;
       animation: fadeIn 4s ease-out forwards;
       cursor: pointer;
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(15px); }
+      0%   { opacity: 0; transform: translateY(12px); }
       100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-
-  <img class="logo" src="destroyed%20logo.png" onclick="location.href='next.html'">
-
+  <div class="logo-text" onclick="location.href='next.html'">
+    SHIMYACREW
+  </div>
 </body>
 </html>
