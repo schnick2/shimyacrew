@@ -4,34 +4,29 @@
   <meta charset="UTF-8">
   <title>SHIMYACREW</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
+      background: black;
       height: 100vh;
-      background: #000;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
     }
 
-    .logo {
-      max-width: 80vw;   /* 화면 기준 최대 크기 */
-      max-height: 40vh;  /* 너무 커지지 않게 높이 제한 */
+    img {
+      width: 80%;
+      max-width: 900px;
       opacity: 0;
-      animation: fadeIn 3.5s ease-out forwards; /* ← 페이드인 속도 */
+      animation: fadeIn 4s ease-out forwards;
     }
 
     @keyframes fadeIn {
-      0%   { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0px); }
     }
   </style>
 </head>
 <body>
-  <!-- 여기 src에 업로드한 파일 이름 넣기 (예: logo.png) -->
-  <img class="logo" src="logo.png" alt="SHIMYACREW logo">
+  <img src="logo.png" alt="SHIMYA CREW">
 </body>
 </html>
