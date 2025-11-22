@@ -9,24 +9,32 @@
       background: black;
       height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
-    img {
-      width: 80%;
-      max-width: 900px;
+    .logo {
+      font-size: 32px;
+      color: white;
+      letter-spacing: 0.25em;
       opacity: 0;
-      animation: fadeIn 4s ease-out forwards;
+      animation: fadeIn 4s ease forwards;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-family: Helvetica, Arial, sans-serif;
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0px); }
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <img src="logo.png" alt="SHIMYA CREW">
+
+  <div class="logo" onclick="location.href='next.html'">
+    SHIMYACREW
+  </div>
+
 </body>
 </html>
