@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SHIMYA CREW</title>
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <title>SHIMYA CREW</title>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Helvetica, sans-serif;
+            color: white;
+        }
 
-    .logo-text {
-      font-size: 22px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeIn 4s ease-out forwards;
-      cursor: pointer;
-    }
+        .logo {
+            position: absolute;
+            font-size: 18px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
 
-    @keyframes fadeIn {
-      0%   { opacity: 0; transform: translateY(12px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+        .buttons {
+            position: absolute;
+            right: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #yellow { background: #FF9F00; }
+        #blue { background: #050536; }
+        #red { background: #D61F2C; }
+    </style>
 </head>
 <body>
-  <div class="logo-text" onclick="location.href='next.html'">
-    SHIMYA CREW
-  </div>
+
+    <a href="logo.html" class="logo">SHIMYA CREW</a>
+
+    <div class="buttons">
+        <a href="photos.html"><div id="yellow" class="circle"></div></a>
+        <a href="writing.html"><div id="blue" class="circle"></div></a>
+        <a href="contact.html"><div id="red" class="circle"></div></a>
+    </div>
+
 </body>
 </html>
