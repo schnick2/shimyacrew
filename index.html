@@ -54,4 +54,92 @@
 
         .trigger-dot:active {
             transform: translateY(-50%) scale(1.3);
-            box-shadow: 0 0 12px rgba(255, 255, 255, 
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+        }
+
+        /* 오른쪽 3개 버튼 */
+        .buttons {
+            position: absolute;
+            right: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            opacity: 0;
+            transform: translateX(160px);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+                        opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .buttons.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #yellow { background: #FF9F00; }
+        #blue   { background: #050536; }
+        #red    { background: #D61F2C; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 중앙 SHIMYA CREW 로고 -->
+    <a href="logo.html" class="logo" id="logoText">SHIMYA CREW</a>
+
+    <!-- 좌측 흰 점 -->
+    <div class="trigger-dot" id="triggerDot"></div>
+
+    <!-- 오른쪽 3개 원 버튼 -->
+    <div class="buttons" id="menuButtons">
+        <a href="photos.html"><div id="yellow" class="circle"></div></a>
+        <a href="writing.html"><div id="blue" class="circle"></div></a>
+        <a href="contact.html"><div id="red" class="circle"></div></a>
+    </div>
+
+    <script>
+        const trigger = document.getElementById('triggerDot');
+        const panel = document.getElementById('menuButtons');
+        const logo = document.getElementById('logoText');
+
+        let isOpen = false;
+
+        // 흰 점 클릭 → 열고 닫기
+        trigger.addEventListener('click', function (event) {
+            event.stopPropagation(); // 바깥 클릭 이벤트와 충돌 방지
+
+            isOpen = !isOpen;
+
+            if (isOpen) {
+                panel.classList.add('show');
+                logo.classList.add('blur');
+            } else {
+                panel.classList.remove('show');
+                logo.classList.remove('blur');
+            }
+        });
+
+        // 🔥 화면 아무데나 클릭하면 닫힘
+        document.addEventListener('click', function () {
+            if (isOpen) {
+                panel.classList.remove('show');
+                logo.classList.remove('blur');
+                isOpen = false;
+            }
+        });
+
+        // 메뉴 안에서 클릭 시 닫히지 않게
+        panel.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    </script>
+
+</body>
+</html>
