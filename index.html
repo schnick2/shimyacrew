@@ -27,7 +27,7 @@
             transition: filter 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
         }
 
-        /* 🔥 은은한 잔상 블러 */
+        /* 로고 블러 */
         .logo.blur {
             filter: blur(1.8px);
             opacity: 0.85;
@@ -37,34 +37,42 @@
                 0 0 22px rgba(255, 255, 255, 0.35);
         }
 
-        /* 왼쪽 흰 점 */
-        .trigger-dot {
+        /* 클릭 영역 크게 */
+        .trigger-area {
             position: absolute;
-            left: 40px;
+            left: 32px;
             top: 50%;
             transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 실제 보이는 흰 점 */
+        .trigger-dot {
             width: 18px;
             height: 18px;
             background: white;
             border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .trigger-dot:active {
-            transform: translateY(-50%) scale(1.3);
+        .trigger-area:active .trigger-dot {
+            transform: scale(1.3);
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
         }
 
-        /* 오른쪽 3개 버튼 */
+        /* 버튼 서랍 */
         .buttons {
             position: absolute;
-            right: 80px;
+            right: 70px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
-
+            gap: 35px;
             opacity: 0;
             transform: translateX(160px);
             transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
@@ -76,6 +84,13 @@
             transform: translateX(0);
         }
 
+        /* 원+라벨 묶음 */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .circle {
             width: 120px;
             height: 120px;
@@ -83,37 +98,65 @@
             cursor: pointer;
         }
 
+        /* 버튼별 색상 */
         #yellow { background: #FF9F00; }
+        #yellow-label { color: #FFB733; }
+
         #blue   { background: #050536; }
+        #blue-label { color: #1B1B7A; } /* BLOGS */
+
         #red    { background: #D61F2C; }
+        #red-label { color: #E64A53; }
+
+        /* 라벨 텍스트 */
+        .label {
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
 
     </style>
 </head>
 <body>
 
-    <!-- 중앙 SHIMYA CREW 로고 -->
+    <!-- 로고 -->
     <a href="logo.html" class="logo" id="logoText">SHIMYA CREW</a>
 
-    <!-- 좌측 흰 점 -->
-    <div class="trigger-dot" id="triggerDot"></div>
+    <!-- 왼쪽 클릭영역 -->
+    <div class="trigger-area" id="triggerArea">
+        <div class="trigger-dot"></div>
+    </div>
 
-    <!-- 오른쪽 3개 원 버튼 -->
+    <!-- 오른쪽 버튼들 -->
     <div class="buttons" id="menuButtons">
-        <a href="photos.html"><div id="yellow" class="circle"></div></a>
-        <a href="writing.html"><div id="blue" class="circle"></div></a>
-        <a href="contact.html"><div id="red" class="circle"></div></a>
+
+        <a href="photos.html" class="menu-item">
+            <div id="yellow" class="circle"></div>
+            <span class="label" id="yellow-label">PHOTOS</span>
+        </a>
+
+        <a href="writing.html" class="menu-item">
+            <div id="blue" class="circle"></div>
+            <span class="label" id="blue-label">BLOGS</span>
+        </a>
+
+        <a href="contact.html" class="menu-item">
+            <div id="red" class="circle"></div>
+            <span class="label" id="red-label">CONTACT</span>
+        </a>
+
     </div>
 
     <script>
-        const trigger = document.getElementById('triggerDot');
+        const trigger = document.getElementById('triggerArea');
         const panel = document.getElementById('menuButtons');
         const logo = document.getElementById('logoText');
 
         let isOpen = false;
 
-        // 흰 점 클릭 → 열고 닫기
+        // 열기/닫기
         trigger.addEventListener('click', function (event) {
-            event.stopPropagation(); // 바깥 클릭 이벤트와 충돌 방지
+            event.stopPropagation();
 
             isOpen = !isOpen;
 
@@ -126,7 +169,7 @@
             }
         });
 
-        // 🔥 화면 아무데나 클릭하면 닫힘
+        // 화면 클릭 → 닫기
         document.addEventListener('click', function () {
             if (isOpen) {
                 panel.classList.remove('show');
@@ -135,7 +178,7 @@
             }
         });
 
-        // 메뉴 안에서 클릭 시 닫히지 않게
+        // 메뉴 클릭 시 닫히지 않게
         panel.addEventListener('click', function (event) {
             event.stopPropagation();
         });
