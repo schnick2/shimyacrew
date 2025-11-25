@@ -13,8 +13,10 @@
             align-items: center;
             font-family: Helvetica, sans-serif;
             color: white;
+            overflow: hidden;
         }
 
+        /* 중앙 로고 */
         .logo {
             position: absolute;
             font-size: 18px;
@@ -24,14 +26,42 @@
             color: white;
         }
 
+        /* 왼쪽 트리거 흰 점 */
+        .trigger-dot {
+            position: absolute;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        /* 서랍 메뉴 묶음 */
         .buttons {
             position: absolute;
             right: 80px;
             display: flex;
             flex-direction: column;
             gap: 30px;
+
+            /* 초기 상태: 화면 밖 + 투명 */
+            opacity: 0;
+            transform: translateX(160px);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+                        opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
+        /* 열렸을 때 (서랍처럼 쭈와악) */
+        .buttons.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 동그라미 */
         .circle {
             width: 120px;
             height: 120px;
@@ -40,19 +70,29 @@
         }
 
         #yellow { background: #FF9F00; }
-        #blue { background: #050536; }
-        #red { background: #D61F2C; }
+        #blue   { background: #050536; }
+        #red    { background: #D61F2C; }
+
     </style>
 </head>
 <body>
 
     <a href="logo.html" class="logo">SHIMYA CREW</a>
 
-    <div class="buttons">
+    <div class="trigger-dot" onclick="openMenu()"></div>
+
+    <!-- 서랍 안에서 쭈우욱 나오는 3개 원 -->
+    <div class="buttons" id="menuButtons">
         <a href="photos.html"><div id="yellow" class="circle"></div></a>
         <a href="writing.html"><div id="blue" class="circle"></div></a>
         <a href="contact.html"><div id="red" class="circle"></div></a>
     </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById('menuButtons').classList.toggle('show');
+        }
+    </script>
 
 </body>
 </html>
