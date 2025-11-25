@@ -7,11 +7,26 @@
         body {
             background: black;
             height: 100vh;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             font-family: Helvetica, sans-serif;
+            position: relative;
+        }
+
+        /* 뒤로가기 버튼 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 32px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            user-select: none;
         }
 
         .text {
@@ -21,6 +36,9 @@
     </style>
 </head>
 <body>
+
+<!-- 뒤로가기 버튼 -->
+<div class="back-btn" onclick="history.back()">←</div>
 
 <div class="text">@shimyacrew DM</div>
 
