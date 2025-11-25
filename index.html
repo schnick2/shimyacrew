@@ -6,12 +6,12 @@
     <style>
         body {
             margin: 0;
-            background: black;
+            background: radial-gradient(circle at top, #202233 0%, #020208 55%, #000000 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Helvetica, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, system-ui, Helvetica, sans-serif;
             color: white;
             overflow: hidden;
         }
@@ -24,9 +24,10 @@
             cursor: pointer;
             text-decoration: none;
             color: white;
+            text-transform: uppercase;
         }
 
-        /* 왼쪽 트리거 흰 점 */
+        /* 왼쪽 트리거 흰 점 (iOS 토글 느낌) */
         .trigger-dot {
             position: absolute;
             left: 40px;
@@ -34,63 +35,130 @@
             transform: translateY(-50%);
             width: 18px;
             height: 18px;
-            background: white;
+            background: #ffffff;
             border-radius: 50%;
             cursor: pointer;
-            transition: transform 0.4s ease;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+            transition:
+                transform 0.35s cubic-bezier(0.19, 1, 0.22, 1),
+                box-shadow 0.35s cubic-bezier(0.19, 1, 0.22, 1),
+                background 0.35s ease;
         }
 
-        /* 서랍 메뉴 묶음 */
-        .buttons {
+        .trigger-dot.active {
+            transform: translateY(-50%) scale(1.5);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.9);
+            background: #ffffff;
+        }
+
+        /* 유리 패널 (iOS 컨트롤 센터 느낌) */
+        .panel {
             position: absolute;
-            right: 80px;
+            right: 40px;
+            top: 50%;
+            transform: translate(220px, -50%);
+            padding: 28px 26px;
+            border-radius: 26px;
+            background: rgba(12, 12, 18, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.75),
+                0 0 0 0.5px rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            opacity: 0;
+            transition:
+                transform 0.65s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .panel.show {
+            opacity: 1;
+            transform: translate(0, -50%);
+        }
+
+        /* 안쪽 버튼 묶음 */
+        .buttons {
             display: flex;
             flex-direction: column;
-            gap: 30px;
-
-            /* 초기 상태: 화면 밖 + 투명 */
-            opacity: 0;
-            transform: translateX(160px);
-            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-                        opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        /* 열렸을 때 (서랍처럼 쭈와악) */
-        .buttons.show {
-            opacity: 1;
-            transform: translateX(0);
+            gap: 22px;
         }
 
         /* 동그라미 */
         .circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            border-radius: 32px;
             cursor: pointer;
+            box-shadow:
+                0 14px 28px rgba(0, 0, 0, 0.65),
+                0 0 0 0.5px rgba(255, 255, 255, 0.12);
+            transform: translateX(18px);
+            opacity: 0;
+            transition:
+                transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
         }
 
-        #yellow { background: #FF9F00; }
-        #blue   { background: #050536; }
-        #red    { background: #D61F2C; }
+        /* 패널 열릴 때 안의 버튼들 서서히 들어오기 */
+        .panel.show .circle {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .panel.show .circle:nth-child(1) { transition-delay: 0.04s, 0.04s, 0s, 0s; }
+        .panel.show .circle:nth-child(2) { transition-delay: 0.09s, 0.09s, 0s, 0s; }
+        .panel.show .circle:nth-child(3) { transition-delay: 0.14s, 0.14s, 0s, 0s; }
+
+        /* 호버 시 살짝 뜨는 느낌 */
+        .circle:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.8),
+                0 0 0 0.5px rgba(255, 255, 255, 0.25);
+        }
+
+        /* 색감 – 살짝 그라디언트로 iOS스럽게 */
+        #yellow {
+            background: radial-gradient(circle at 30% 0%, #ffe6a0 0%, #ffb200 40%, #ff8c00 100%);
+        }
+        #blue {
+            background: radial-gradient(circle at 30% 0%, #7fa4ff 0%, #1e2b88 40%, #050536 100%);
+        }
+        #red {
+            background: radial-gradient(circle at 30% 0%, #ffb0b5 0%, #f3424a 40%, #8d1117 100%);
+        }
+
+        a {
+            text-decoration: none;
+        }
 
     </style>
 </head>
 <body>
 
+    <!-- 화면 중앙 로고 -->
     <a href="logo.html" class="logo">SHIMYA CREW</a>
 
+    <!-- 서랍 핸들(열기 버튼) -->
     <div class="trigger-dot" onclick="openMenu()"></div>
 
-    <!-- 서랍 안에서 쭈우욱 나오는 3개 원 -->
-    <div class="buttons" id="menuButtons">
-        <a href="photos.html"><div id="yellow" class="circle"></div></a>
-        <a href="writing.html"><div id="blue" class="circle"></div></a>
-        <a href="contact.html"><div id="red" class="circle"></div></a>
+    <!-- 유리 패널 + 안쪽 서랍 메뉴 -->
+    <div class="panel" id="menuPanel">
+        <div class="buttons">
+            <a href="photos.html"><div id="yellow" class="circle"></div></a>
+            <a href="writing.html"><div id="blue" class="circle"></div></a>
+            <a href="contact.html"><div id="red" class="circle"></div></a>
+        </div>
     </div>
 
     <script>
         function openMenu() {
-            document.getElementById('menuButtons').classList.toggle('show');
+            const panel = document.getElementById('menuPanel');
+            const trigger = document.querySelector('.trigger-dot');
+            const isOpen = panel.classList.toggle('show');
+            trigger.classList.toggle('active', isOpen);
         }
     </script>
 
