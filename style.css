@@ -1,0 +1,76 @@
+/* -----------------------------------
+   기본 공통 스타일
+------------------------------------ */
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    font-family: Helvetica, sans-serif;
+}
+
+/* 뒤로가기 버튼 공통 */
+.back-btn {
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn svg {
+    fill: white;
+}
+
+
+/* ===================================
+   🖥 데스크톱 모드 (넓은 화면)
+=================================== */
+@media (min-width: 769px) {
+
+    body {
+        font-size: 18px;
+    }
+
+    .back-btn {
+        top: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .back-btn svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+/* ===================================
+   📱 모바일 모드 (좁은 화면)
+=================================== */
+@media (max-width: 768px) {
+
+    /* 전체 UI 확대 (iOS 인앱 브라우저 대응) */
+    body {
+        transform: scale(1.35);
+        transform-origin: top left;
+    }
+
+    .back-btn {
+        top: 24px;
+        left: 24px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .back-btn svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .text {
+        font-size: 26px;
+        letter-spacing: 2px;
+    }
+}
