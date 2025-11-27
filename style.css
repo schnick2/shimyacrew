@@ -1,6 +1,8 @@
-/* 기본 공통 스타일 (모바일 기준) */
+/* -----------------------------------
+   기본 공통 스타일 (모바일 기준)
+------------------------------------ */
 html {
-    font-size: 16px;  /* 기본 모바일 사이즈 */
+    font-size: 16px;
 }
 
 body {
@@ -9,16 +11,16 @@ body {
     background: black;
     color: white;
     font-family: Helvetica, sans-serif;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
-/* 중앙 텍스트 */
+/* 텍스트 공통 */
 .text {
-    font-size: 1rem;        /* 16px 정도 */
-    letter-spacing: 0.12em; /* 살짝 퍼지게 */
+    font-size: 1rem;
+    letter-spacing: 0.12em;
 }
 
 /* 뒤로가기 버튼 공통 */
@@ -26,12 +28,11 @@ body {
     position: fixed;
     top: 16px;
     left: 16px;
-    width: 44px;   /* 애플 가이드라인 최소 터치 영역 */
+    width: 44px;
     height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 .back-btn svg {
@@ -40,7 +41,9 @@ body {
     fill: white;
 }
 
-/* 데스크톱에서만 살짝 키우기 */
+/* -----------------------------------
+   데스크톱에서 크게
+------------------------------------ */
 @media (min-width: 769px) {
     html {
         font-size: 18px;
