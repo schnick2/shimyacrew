@@ -87,15 +87,11 @@
 
             padding: 28px 32px;
 
-            /* ★ Apple Superellipse Shape */
             border-radius: 34px / 42px;
-
-            /* ★ Apple translucent popup feel */
             background: rgba(0, 0, 0, 0.78);
             border: 1px solid rgba(255, 255, 255, 0.10);
             backdrop-filter: blur(22px);
 
-            /* ★ Soft Apple box shadow */
             box-shadow:
                 0 25px 55px rgba(0, 0, 0, 0.65),
                 0 0 35px rgba(255, 255, 255, 0.05);
@@ -125,7 +121,7 @@
             transform: translateX(0);
         }
 
-        /* 메뉴 아이템 (원) */
+        /* 메뉴 아이템 */
         .menu-item {
             display: flex;
             align-items: center;
@@ -143,7 +139,6 @@
             justify-content: center;
         }
 
-        /* 원 안 텍스트 */
         .circle span {
             color: white;
             font-size: 15px;
@@ -156,7 +151,6 @@
         #blue   { background: #050536; }
         #red    { background: #D61F2C; }
 
-        /* 모바일 */
         @media (max-width: 768px) {
             .circle {
                 width: 140px;
@@ -182,7 +176,6 @@
         <div class="trigger-dot"></div>
     </div>
 
-    <!-- Apple Curve Drawer -->
     <div class="buttons" id="menuButtons">
 
         <a href="photos.html" class="menu-item">
@@ -205,36 +198,84 @@
 
     </div>
 
+    <!-- ✨ 여기부터 추가된 제스처 + 전체 스크립트 완성본 -->
     <script>
         const trigger = document.getElementById('triggerArea');
-        const panel = document.getElementById('menuButtons');
-        const logo = document.getElementById('logoText');
+        const panel   = document.getElementById('menuButtons');
+        const logo    = document.getElementById('logoText');
 
         let isOpen = false;
 
+        function openDrawer() {
+            if (isOpen) return;
+            panel.classList.add('show');
+            logo.classList.add('blur');
+            isOpen = true;
+        }
+
+        function closeDrawer() {
+            if (!isOpen) return;
+            panel.classList.remove('show');
+            logo.classList.remove('blur');
+            isOpen = false;
+        }
+
+        /* 기존: 점 클릭 */
         trigger.addEventListener('click', function (event) {
             event.stopPropagation();
-            isOpen = !isOpen;
-
-            if (isOpen) {
-                panel.classList.add('show');
-                logo.classList.add('blur');
-            } else {
-                panel.classList.remove('show');
-                logo.classList.remove('blur');
-            }
+            if (isOpen) closeDrawer();
+            else openDrawer();
         });
 
         document.addEventListener('click', function () {
-            if (isOpen) {
-                panel.classList.remove('show');
-                logo.classList.remove('blur');
-                isOpen = false;
-            }
+            if (isOpen) closeDrawer();
         });
 
         panel.addEventListener('click', function (event) {
             event.stopPropagation();
+        });
+
+        /* -------------------------------
+           추가: 왼쪽 → 오른쪽 드래그 제스처
+        -------------------------------- */
+        let dragStartX = null;
+        let dragging = false;
+
+        const DRAG_EDGE = 80;
+        const DRAG_THRESHOLD = 60;
+
+        document.addEventListener('touchstart', function (e) {
+            const touch = e.touches[0];
+            const x = touch.clientX;
+
+            if (x < DRAG_EDGE) {
+                dragging = true;
+                dragStartX = x;
+            }
+        });
+
+        document.addEventListener('touchmove', function (e) {
+            if (!dragging || dragStartX === null) return;
+
+            const touch = e.touches[0];
+            const diffX = touch.clientX - dragStartX;
+
+            if (!isOpen && diffX > DRAG_THRESHOLD) {
+                openDrawer();
+                dragging = false;
+                dragStartX = null;
+            }
+
+            if (isOpen && diffX < -DRAG_THRESHOLD) {
+                closeDrawer();
+                dragging = false;
+                dragStartX = null;
+            }
+        });
+
+        document.addEventListener('touchend', function () {
+            dragging = false;
+            dragStartX = null;
         });
     </script>
 
