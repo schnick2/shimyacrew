@@ -3,44 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Contact - SHIMYA CREW</title>
+
+    <!-- 모바일/데스크톱 자연스러운 비율 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 전체 사이트 공통 스타일 -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 이 페이지만의 개별 스타일 -->
     <style>
-        body {
-            background: black;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: Helvetica, sans-serif;
-            position: relative;
-        }
-
-        /* 뒤로가기 버튼 */
-        .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 32px;
-            cursor: pointer;
-            color: white;
-            text-decoration: none;
-            user-select: none;
-        }
-
         .text {
-            font-size: 22px;
-            letter-spacing: 2px;
+            letter-spacing: 0.12em;
         }
     </style>
 </head>
+
 <body>
 
-<!-- 뒤로가기 버튼 -->
-<div class="back-btn" onclick="history.back()">←</div>
+    <!-- 공통 뒤로가기 버튼 -->
+    <div class="back-btn" onclick="history.back()">
+        <svg viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6" />
+        </svg>
+    </div>
 
-<div class="text">@shimyacrew DM</div>
+    <div class="text">@shimyacrew DM</div>
 
 </body>
 </html>
