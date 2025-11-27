@@ -33,7 +33,7 @@
             transition: filter 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
         }
 
-        /* 로고 블러 */
+        /* 서랍 열릴 때 로고 블러 + 클릭 막기 */
         .logo.blur {
             filter: blur(1.8px);
             opacity: 0.85;
@@ -41,9 +41,10 @@
                 0 0 6px rgba(255, 255, 255, 0.7),
                 0 0 12px rgba(255, 255, 255, 0.5),
                 0 0 22px rgba(255, 255, 255, 0.35);
+            pointer-events: none; /* 클릭 불가 */
         }
 
-        /* 클릭 영역 크게 */
+        /* 왼쪽 트리거 영역 */
         .trigger-area {
             position: absolute;
             left: 32px;
@@ -72,17 +73,43 @@
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
         }
 
-        /* 버튼 서랍 */
+        /* 오른쪽 서랍(창) 전체 */
         .buttons {
             position: absolute;
-            right: 70px;
+            right: 40px;
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 28px;
+
+            /* 처음엔 숨김 상태 */
             opacity: 0;
             transform: translateX(160px);
-            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-                        opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+
+            /* 서랍 박스 스타일 (쿠키 팝업 느낌) */
+            padding: 24px 26px;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
+
+            transition:
+                transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* 서랍 뒤에서 은은한 빛나는 느낌 (선택사항) */
+        .buttons::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 120%;
+            height: 130%;
+            background: radial-gradient(circle at center,
+                    rgba(255, 255, 255, 0.18),
+                    transparent 60%);
+            filter: blur(18px);
+            z-index: -1;
         }
 
         .buttons.show {
@@ -90,11 +117,12 @@
             transform: translateX(0);
         }
 
-        /* 원+라벨 묶음 */
+        /* 메뉴 아이템 (원 전체가 링크) */
         .menu-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            text-decoration: none;
         }
 
         .circle {
@@ -102,25 +130,41 @@
             height: 120px;
             border-radius: 50%;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 원 안 텍스트 */
+        .circle span {
+            color: white;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
         }
 
         /* 버튼별 색상 */
         #yellow { background: #FF9F00; }
-        #yellow-label { color: #FFB733; }
-
         #blue   { background: #050536; }
-        #blue-label { color: #1B1B7A; } /* BLOGS */
-
         #red    { background: #D61F2C; }
-        #red-label { color: #E64A53; }
 
-        /* 라벨 텍스트 */
-        .label {
-            font-size: 13px;
-            letter-spacing: 2px;
-            font-weight: 300;
+        /* 모바일에서 조금 키우기 */
+        @media (max-width: 768px) {
+            .circle {
+                width: 140px;
+                height: 140px;
+            }
+
+            .circle span {
+                font-size: 14px;
+            }
+
+            .buttons {
+                right: 24px;
+                gap: 24px;
+            }
         }
-
     </style>
 </head>
 <body>
@@ -133,22 +177,25 @@
         <div class="trigger-dot"></div>
     </div>
 
-    <!-- 오른쪽 버튼들 -->
+    <!-- 오른쪽 서랍 (창 + 원 버튼들) -->
     <div class="buttons" id="menuButtons">
 
         <a href="photos.html" class="menu-item">
-            <div id="yellow" class="circle"></div>
-            <span class="label" id="yellow-label">PHOTOS</span>
+            <div id="yellow" class="circle">
+                <span>PHOTOS</span>
+            </div>
         </a>
 
         <a href="writing.html" class="menu-item">
-            <div id="blue" class="circle"></div>
-            <span class="label" id="blue-label">BLOG</span>
+            <div id="blue" class="circle">
+                <span>BLOG</span>
+            </div>
         </a>
 
         <a href="contact.html" class="menu-item">
-            <div id="red" class="circle"></div>
-            <span class="label" id="red-label">CONTACT</span>
+            <div id="red" class="circle">
+                <span>CONTACT</span>
+            </div>
         </a>
 
     </div>
@@ -168,14 +215,14 @@
 
             if (isOpen) {
                 panel.classList.add('show');
-                logo.classList.add('blur');
+                logo.classList.add('blur');   // 블러 + 클릭막힘
             } else {
                 panel.classList.remove('show');
                 logo.classList.remove('blur');
             }
         });
 
-        // 화면 클릭 → 닫기
+        // 화면 아무 데나 클릭 → 닫기
         document.addEventListener('click', function () {
             if (isOpen) {
                 panel.classList.remove('show');
@@ -184,7 +231,7 @@
             }
         });
 
-        // 메뉴 클릭 시 닫히지 않게
+        // 메뉴 클릭 시 트리거로 전파 막기
         panel.addEventListener('click', function (event) {
             event.stopPropagation();
         });
