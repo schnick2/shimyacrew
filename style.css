@@ -1,76 +1,60 @@
-/* -----------------------------------
-   기본 공통 스타일
------------------------------------- */
+/* 기본 공통 스타일 (모바일 기준) */
+html {
+    font-size: 16px;  /* 기본 모바일 사이즈 */
+}
+
 body {
     margin: 0;
     padding: 0;
     background: black;
     color: white;
     font-family: Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 중앙 텍스트 */
+.text {
+    font-size: 1rem;        /* 16px 정도 */
+    letter-spacing: 0.12em; /* 살짝 퍼지게 */
 }
 
 /* 뒤로가기 버튼 공통 */
 .back-btn {
-    position: absolute;
-    cursor: pointer;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 44px;   /* 애플 가이드라인 최소 터치 영역 */
+    height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .back-btn svg {
+    width: 20px;
+    height: 20px;
     fill: white;
 }
 
-
-/* ===================================
-   🖥 데스크톱 모드 (넓은 화면)
-=================================== */
+/* 데스크톱에서만 살짝 키우기 */
 @media (min-width: 769px) {
-
-    body {
+    html {
         font-size: 18px;
-    }
-
-    .back-btn {
-        top: 20px;
-        left: 20px;
-        width: 50px;
-        height: 50px;
-    }
-
-    .back-btn svg {
-        width: 28px;
-        height: 28px;
-    }
-}
-
-
-/* ===================================
-   📱 모바일 모드 (좁은 화면)
-=================================== */
-@media (max-width: 768px) {
-
-    /* 전체 UI 확대 (iOS 인앱 브라우저 대응) */
-    body {
-        transform: scale(1.35);
-        transform-origin: top left;
     }
 
     .back-btn {
         top: 24px;
         left: 24px;
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
     }
 
     .back-btn svg {
-        width: 40px;
-        height: 40px;
-    }
-
-    .text {
-        font-size: 26px;
-        letter-spacing: 2px;
+        width: 24px;
+        height: 24px;
     }
 }
