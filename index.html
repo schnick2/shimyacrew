@@ -10,10 +10,18 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* 브라우저 높이 버그 방지 기본 세팅 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
         body {
             margin: 0;
             background: black;
-            height: 100vh;
+            /* height: 100vh;  <- 이거 대신 */
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -202,6 +210,13 @@
                 gap: 24px;
             }
         }
+
+        /* iOS 최신 브라우저에서 실제 화면 높이 기준으로 맞추기 */
+        @supports (height: 100dvh) {
+            body {
+                min-height: 100dvh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -379,7 +394,6 @@
                     openDrawer();
                 }
             }
-
             dragging = false;
             dragStartX = null;
             dragProgress = 0;
