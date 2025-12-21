@@ -2,44 +2,67 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BLOG</title>
+
 <style>
 body{
   margin:0;
   background:black;
   color:white;
-  font-family: Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 }
-a{color:white;text-decoration:none;}
-a:hover{opacity:.6;}
-.nick{
-  position:fixed;
-  top:24px;
-  right:24px;
-  font-size:48px;
-  font-weight:800;
-}
-.center{
+
+/* 전체 화면 */
+.stage{
   height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  position:relative;
 }
-.name{
-  font-size:72px;
+
+/* 우측 텍스트 블록 */
+.right{
+  position:absolute;
+  right:40px;        /* 사진처럼 화면 우측에 붙이기 */
+  top:50%;
+  transform: translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+  text-align:right;
+}
+
+/* 공통 텍스트 스타일 */
+.choice{
   font-weight:800;
   letter-spacing:2px;
+  font-size: clamp(42px, 6.5vw, 82px);
+  line-height:1.05;
+  color:white;
+  text-decoration:none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.choice:hover{
+  opacity:.6;
+  transform: translateX(-4px); /* 살짝 당겨지는 느낌 */
+}
+
+/* 모바일 */
+@media (max-width: 768px){
+  .right{
+    right:24px;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<div class="nick">
-  <a href="800.html">800</a>
-</div>
-
-<div class="center">
-  <a class="name" href="kangdanwoo.html">KANG DANWOO</a>
+<div class="stage">
+  <div class="right">
+    <a href="800.html" class="choice">800</a>
+    <a href="kangdanwoo.html" class="choice">KANG DANWOO</a>
+  </div>
 </div>
 
 </body>
